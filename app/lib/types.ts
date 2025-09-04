@@ -414,6 +414,32 @@ export interface SQLFormattingOptions {
   commaStyle: 'leading' | 'trailing';
 }
 
+// JSON to TypeScript types
+export interface JsonTypescriptState {
+  input: string;
+  output: string;
+  isValid: boolean;
+  error?: string;
+  options: {
+    interfaceName: string;
+    arrayType: 'array' | 'tuple';
+    optionalProperties: boolean;
+    exportInterface: boolean;
+  };
+}
+
+export interface GeneratedInterface {
+  name: string;
+  properties: InterfaceProperty[];
+}
+
+export interface InterfaceProperty {
+  name: string;
+  type: string;
+  optional: boolean;
+  description?: string;
+}
+
 // Storage keys constant
 export const STORAGE_KEYS = {
   THEME: 'devtools-theme',
