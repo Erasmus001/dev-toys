@@ -194,12 +194,8 @@ export function JwtCodecTool() {
     }));
   };
 
-  // Auto-encode when in encode mode and data changes
-  useEffect(() => {
-    if (state.mode === 'encode' && (Object.keys(state.payload).length > 0 || state.secret)) {
-      encodeJWT();
-    }
-  }, [state.mode, state.payload, state.secret, state.algorithm]);
+  // Removed problematic useEffect that was causing infinite loops
+  // Instead, we'll trigger encoding manually on user interactions
 
   const formatTimestamp = (timestamp: number): string => {
     return new Date(timestamp * 1000).toLocaleString();
@@ -302,7 +298,11 @@ export function JwtCodecTool() {
                 <Select
                   label="Algorithm"
                   value={state.algorithm}
-                  onChange={(value) => setState(prev => ({ ...prev, algorithm: value as JWTAlgorithm }))}
+                  onChange={(value) => {
+                    setState(prev => ({ ...prev, algorithm: value as JWTAlgorithm }));
+                    // Trigger encode after state update
+                    setTimeout(() => encodeJWT(), 0);
+                  }}
                   data={[
                     { value: 'HS256', label: 'HMAC SHA256' },
                     { value: 'HS384', label: 'HMAC SHA384' },
@@ -320,6 +320,10 @@ export function JwtCodecTool() {
                   try {
                     const header = JSON.parse(value);
                     setState(prev => ({ ...prev, header }));
+                    // Trigger encode after state update if in encode mode
+                    if (state.mode === 'encode') {
+                      setTimeout(() => encodeJWT(), 0);
+                    }
                   } catch (error) {
                     // Invalid JSON, ignore
                   }
@@ -375,6 +379,10 @@ export function JwtCodecTool() {
                   try {
                     const payload = JSON.parse(value);
                     setState(prev => ({ ...prev, payload }));
+                    // Trigger encode after state update if in encode mode
+                    if (state.mode === 'encode') {
+                      setTimeout(() => encodeJWT(), 0);
+                    }
                   } catch (error) {
                     // Invalid JSON, ignore
                   }
@@ -403,7 +411,13 @@ export function JwtCodecTool() {
               <TextInput
                 label="Secret Key"
                 value={state.secret}
-                onChange={(event) => setState(prev => ({ ...prev, secret: event.currentTarget.value }))}
+                onChange={(event) => {
+                  setState(prev => ({ ...prev, secret: event.currentTarget.value }));
+                  // Trigger encode after state update if in encode mode
+                  if (state.mode === 'encode') {
+                    setTimeout(() => encodeJWT(), 0);
+                  }
+                }}
                 placeholder="Enter your secret key..."
                 disabled={state.mode === 'decode'}
                 style={{ fontFamily: 'var(--font-geist-mono)' }}
