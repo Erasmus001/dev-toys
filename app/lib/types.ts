@@ -215,33 +215,7 @@ export interface JsonYamlState {
   };
 }
 
-// CRON parser types
-export interface CronParserState {
-  expression: string;
-  isValid: boolean;
-  error?: string;
-  parsed: CronParsedResult | null;
-  nextExecutions: Date[];
-  timezone: string;
-}
 
-export interface CronParsedResult {
-  second?: string;
-  minute: string;
-  hour: string;
-  dayOfMonth: string;
-  month: string;
-  dayOfWeek: string;
-  year?: string;
-  description: string;
-}
-
-export interface CronField {
-  name: string;
-  value: string;
-  description: string;
-  allowed: string;
-}
 export interface JSONYAMLState {
   mode: 'json-to-yaml' | 'yaml-to-json';
   input: string;
@@ -376,12 +350,11 @@ export interface RegexMatch {
 // CRON parser types
 export interface CronParserState {
   expression: string;
-  description: string;
-  nextRuns: Date[];
   isValid: boolean;
-  format: 'standard' | 'extended';
-  timezone: string;
   error?: string;
+  parsed: CronParsedResult | null;
+  nextExecutions: Date[];
+  timezone: string;
 }
 
 export interface CronSchedule {
@@ -392,6 +365,34 @@ export interface CronSchedule {
   month: string;
   dayOfWeek: string;
   year?: string;
+}
+
+export interface CronParsedResult {
+  second?: string;
+  minute: string;
+  hour: string;
+  dayOfMonth: string;
+  month: string;
+  dayOfWeek: string;
+  year?: string;
+  description: string;
+}
+
+export interface CronField {
+  name: string;
+  value: string;
+  description: string;
+  allowed: string;
+}
+
+// Markdown preview types
+export interface MarkdownPreviewState {
+  input: string;
+  output: string;
+  isValid: boolean;
+  error?: string;
+  viewMode: 'split' | 'preview' | 'editor';
+  theme: 'light' | 'dark';
 }
 
 // SQL formatter types
