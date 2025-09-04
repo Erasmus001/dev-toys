@@ -13,10 +13,9 @@ export default function HomePage() {
     <>
       <Header />
       
-      <Container size="xl" py="xl">
-        <Stack gap="xl">
-          {/* Hero Section */}
-          <Stack align="center" gap="md" ta="center">
+      <div className='w-full max-w-7xl mx-auto px-4'>
+        <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-10'>
+          <div className='w-full flex items-center justify-center flex-col gap-y-4 text-center'>
             <Title 
               order={1} 
               size="3rem" 
@@ -43,22 +42,22 @@ export default function HomePage() {
             <Text size="md" c="dimmed">
               Choose from 17 essential developer tools
             </Text>
-          </Stack>
+          </div>
 
           {/* Tools Grid */}
           <ToolGrid searchQuery={searchQuery} />
           
           {/* Footer Info */}
-          <Stack align="center" gap="xs" mt="xl">
+          <div className='w-full text-center space-y-4 text-sm text-gray-500 dark:text-gray-400'>
             <Text size="sm" c="dimmed" ta="center">
               All tools process data locally in your browser. No data is transmitted or stored.
             </Text>
             <Text size="xs" c="dimmed">
               Version {APP_CONFIG.version} • Built with Next.js & Mantine
             </Text>
-          </Stack>
-        </Stack>
-      </Container>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

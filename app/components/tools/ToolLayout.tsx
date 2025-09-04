@@ -50,7 +50,7 @@ export function ToolLayout({
     <>
       <Header title={`${title} - DevTools Mini`} />
       
-      <Container size="xl" py="md">
+      <Container size="xl" py="lg" mt={"md"}>
         <Stack gap="lg">
           {/* Breadcrumbs */}
           <Breadcrumbs>{breadcrumbItems}</Breadcrumbs>

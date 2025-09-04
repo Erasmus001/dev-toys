@@ -48,8 +48,8 @@ export function Header({
   const displayTitle = title || APP_CONFIG.name;
 
   return (
-    <Box 
-      component="header" 
+    <div 
+    className='w-full p-5 bg-white'
       style={{
         borderBottom: '1px solid var(--mantine-color-gray-3)',
         background: 'var(--background)',
@@ -57,9 +57,8 @@ export function Header({
         top: 0,
         zIndex: 100
       }}
-      p="md"
     >
-      <Group justify="space-between" align="center">
+      <div className='w-full max-w-screen-xl mx-auto flex justify-between items-center'>
         <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Group align="center" gap="xs">
             <Text size="xl" fw={700} c="blue">🛠️</Text>
@@ -94,7 +93,7 @@ export function Header({
             </ActionIcon>
           )}
         </Group>
-      </Group>
-    </Box>
+      </div>
+    </div>
   );
 }

@@ -37,7 +37,7 @@ export function UuidGeneratorTool() {
 
   const generateUUID = () => {
     try {
-      let uuids: string[] = [];
+      const uuids: string[] = [];
       
       for (let i = 0; i < state.bulkCount; i++) {
         let uuid: string;

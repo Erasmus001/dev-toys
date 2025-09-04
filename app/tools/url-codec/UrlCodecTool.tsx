@@ -6,7 +6,6 @@ import {
   Group,
   Button,
   Textarea,
-  Alert,
   CopyButton as MantineCopyButton,
   ActionIcon,
   Tooltip,
@@ -16,12 +15,7 @@ import {
   Table,
   ScrollArea,
 } from "@mantine/core";
-import {
-  IconCopy,
-  IconCheck,
-  IconAlertCircle,
-  IconSwitch,
-} from "@tabler/icons-react";
+import { IconCopy, IconCheck, IconSwitch } from "@tabler/icons-react";
 import { ToolLayout } from "../../components/tools/ToolLayout";
 import { URLCodecState, URLComponents } from "../../lib/types";
 import { notifications } from "@mantine/notifications";
@@ -57,7 +51,7 @@ export function UrlCodecTool() {
         query,
         fragment: urlObj.hash.slice(1), // Remove leading '#'
       };
-    } catch (error) {
+    } catch (error: any) {
       return {
         protocol: "",
         host: "",
@@ -169,6 +163,7 @@ export function UrlCodecTool() {
     if (!queryString) return params;
 
     const pairs = queryString.split("&");
+
     pairs.forEach((pair) => {
       const [key, value] = pair.split("=");
       if (key) {
@@ -181,13 +176,16 @@ export function UrlCodecTool() {
 
   const encodeFullURL = () => {
     const { protocol, host, path, query, fragment } = state.components;
+    
     if (!host) return "";
 
     let url = `${protocol || "https"}://${host}`;
+
     if (path && path !== "/") url += path;
 
     const queryString =
       Object.keys(query).length > 0 ? encodeQueryString(query) : "";
+
     if (queryString) url += `?${queryString}`;
 
     if (fragment) url += `#${fragment}`;
