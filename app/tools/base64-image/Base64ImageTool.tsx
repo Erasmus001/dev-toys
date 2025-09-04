@@ -27,13 +27,16 @@ export function Base64ImageTool() {
   const [state, setState] = useState<Base64ImageState>({
     mode: 'encode',
     files: [],
+    base64Data: '',
     base64String: '',
+    previewUrl: '',
     metadata: [],
+    progress: 0,
     isValid: true,
     error: undefined
   });
 
-  const resetButtonRef = useRef<() => void>();
+  const resetButtonRef = useRef<HTMLButtonElement>(null);
 
   const supportedFormats = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
 
@@ -73,7 +76,7 @@ export function Base64ImageTool() {
             filename: file.name,
             size: file.size,
             type: file.type,
-            lastModified: file.lastModified,
+            format: file.type.split('/')[1],
             dimensions: null // Will be populated when image loads
           });
 
@@ -103,7 +106,7 @@ export function Base64ImageTool() {
             filename: file.name,
             size: file.size,
             type: file.type,
-            lastModified: file.lastModified,
+            format: file.type.split('/')[1],
             dimensions: null
           });
         }
@@ -164,7 +167,7 @@ export function Base64ImageTool() {
           filename: `decoded-image.${type === 'svg+xml' ? 'svg' : type}`,
           size: byteLength,
           type: `image/${type}`,
-          lastModified: Date.now(),
+          format: type === 'svg+xml' ? 'svg' : type,
           dimensions: null
         };
 
@@ -245,11 +248,6 @@ export function Base64ImageTool() {
       isValid: true,
       error: undefined
     }));
-    
-    // Reset file input
-    if (resetButtonRef.current) {
-      resetButtonRef.current();
-    }
   };
 
   const formatFileSize = (bytes: number): string => {
@@ -290,7 +288,6 @@ export function Base64ImageTool() {
                 onChange={handleFileUpload} 
                 accept="image/*" 
                 multiple
-                resetRef={resetButtonRef}
               >
                 {(props) => (
                   <Button {...props} leftSection={<IconUpload size={16} />}>
@@ -427,12 +424,6 @@ export function Base64ImageTool() {
                     <Divider orientation="vertical" />
                     <Text size="sm"><strong>Type:</strong> {meta.type}</Text>
                   </Group>
-                  
-                  {meta.lastModified && (
-                    <Text size="sm" c="dimmed">
-                      <strong>Last Modified:</strong> {new Date(meta.lastModified).toLocaleString()}
-                    </Text>
-                  )}
                 </Stack>
               ))}
             </Stack>

@@ -202,6 +202,46 @@ export type TimestampFormat = 'seconds' | 'milliseconds' | 'microseconds';
 export type DateFormat = 'iso' | 'rfc2822' | 'custom';
 
 // JSON conversion types
+export interface JsonYamlState {
+  mode: 'json-to-yaml' | 'yaml-to-json';
+  input: string;
+  output: string;
+  isValid: boolean;
+  error?: string;
+  yamlOptions: {
+    indent: number;
+    lineWidth: number;
+    flowLevel: number;
+  };
+}
+
+// CRON parser types
+export interface CronParserState {
+  expression: string;
+  isValid: boolean;
+  error?: string;
+  parsed: CronParsedResult | null;
+  nextExecutions: Date[];
+  timezone: string;
+}
+
+export interface CronParsedResult {
+  second?: string;
+  minute: string;
+  hour: string;
+  dayOfMonth: string;
+  month: string;
+  dayOfWeek: string;
+  year?: string;
+  description: string;
+}
+
+export interface CronField {
+  name: string;
+  value: string;
+  description: string;
+  allowed: string;
+}
 export interface JSONYAMLState {
   mode: 'json-to-yaml' | 'yaml-to-json';
   input: string;
