@@ -13,8 +13,8 @@ export default function HomePage() {
     <>
       <Header />
       
-      <div className='w-full max-w-7xl mx-auto px-4'>
-        <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-10'>
+      <div className='w-full max-w-7xl mx-auto px-4' style={{ backgroundColor: 'transparent' }}>
+        <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-10' style={{ backgroundColor: 'transparent' }}>
           <div className='w-full flex items-center justify-center flex-col gap-y-4 text-center'>
             <Title 
               order={1} 
@@ -48,7 +48,7 @@ export default function HomePage() {
           <ToolGrid searchQuery={searchQuery} />
           
           {/* Footer Info */}
-          <div className='w-full text-center space-y-4 text-sm text-gray-500 dark:text-gray-400'>
+          <div className='w-full text-center space-y-4' style={{ color: 'var(--foreground)' }}>
             <Text size="sm" c="dimmed" ta="center">
               All tools process data locally in your browser. No data is transmitted or stored.
             </Text>
