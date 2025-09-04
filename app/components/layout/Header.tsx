@@ -52,7 +52,7 @@ export function Header({
       component="header" 
       style={{
         borderBottom: '1px solid var(--mantine-color-gray-3)',
-        background: 'var(--mantine-color-body)',
+        background: 'var(--background)',
         position: 'sticky',
         top: 0,
         zIndex: 100
@@ -63,7 +63,7 @@ export function Header({
         <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Group align="center" gap="xs">
             <Text size="xl" fw={700} c="blue">🛠️</Text>
-            <Text size="xl" fw={700} className='text-black dark:text-white'>{displayTitle}</Text>
+            <Text size="xl" fw={700}>{displayTitle}</Text>
           </Group>
         </Link>
 

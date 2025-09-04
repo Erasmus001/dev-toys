@@ -5,7 +5,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
   --mantine-font-family: var(--font-geist-sans), system-ui, sans-serif;
   --mantine-font-family-monospace: var(--font-geist-mono), 'Courier New', monospace;
 }
@@ -17,19 +17,39 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Light mode colors (explicit) */
+[data-mantine-color-scheme="light"] {
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+/* Dark mode colors (explicit) */
+[data-mantine-color-scheme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* Auto mode - follows system preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--background) !important;
+  color: var(--foreground) !important;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure html element also follows theme */
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 /* Custom scrollbar */
@@ -86,4 +106,29 @@ body {
 
 [data-mantine-color-scheme="dark"] .hljs {
   background: var(--mantine-color-dark-7) !important;
+}
+
+/* Additional theme support */
+[data-mantine-color-scheme="light"] {
+  --mantine-color-body: #ffffff;
+  --mantine-color-text: #000000;
+}
+
+[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #000000;
+  --mantine-color-text: #ffffff;
+}
+
+/* Ensure all text inherits proper colors */
+* {
+  color: inherit;
+}
+
+/* Override any conflicting text colors */
+.text-black {
+  color: var(--foreground) !important;
+}
+
+.dark\:text-white {
+  color: var(--foreground) !important;
 }

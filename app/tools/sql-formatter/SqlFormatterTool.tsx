@@ -85,7 +85,7 @@ export function SqlFormatterTool() {
       };
 
       const options = {
-        language: dialectMap[state.dialect] as any,
+        language: dialectMap[state.dialect || 'mysql'] as any,
         keywordCase: state.options.keywordCase === 'title' ? 'upper' : state.options.keywordCase
       };
 
@@ -267,7 +267,7 @@ export function SqlFormatterTool() {
               <Text fw={500}>SQL Input</Text>
               <Group gap="xs">
                 <IconDatabase size={16} />
-                <Text size="sm" c="dimmed">{state.dialect.toUpperCase()}</Text>
+                <Text size="sm" c="dimmed">{state.dialect?.toUpperCase() || 'SQL'}</Text>
               </Group>
             </Group>
             <Textarea

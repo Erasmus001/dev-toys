@@ -267,46 +267,45 @@ export interface InterfaceProperty {
 
 // Image processing types
 export interface ImageConverterState {
-  inputFiles: File[];
-  outputFormat: ImageFormat;
+  files: File[];
+  convertedImages: ConvertedImage[];
+  targetFormat: ImageFormat;
   quality: number;
-  options: ImageConversionOptions;
-  results: ConversionResult[];
-  progress: number;
+  isProcessing: boolean;
+  error?: string;
 }
 
-export type ImageFormat = 'jpeg' | 'png' | 'webp' | 'gif';
-
-export interface ImageConversionOptions {
-  preserveMetadata: boolean;
-  progressive: boolean; // for JPEG
-  lossless: boolean; // for WebP
-  transparency: boolean;
-}
-
-export interface ConversionResult {
+export interface ConvertedImage {
+  originalFile: File;
+  convertedBlob: Blob;
+  convertedDataUrl: string;
   originalSize: number;
-  compressedSize: number;
+  convertedSize: number;
   compressionRatio: number;
-  file: File;
-  previewUrl: string;
 }
+
+export type ImageFormat = 'jpeg' | 'png' | 'webp';
 
 // Image compressor types
 export interface ImageCompressorState {
   files: File[];
-  compressionLevel: number;
-  quality: number; // for JPEG
-  stripMetadata: boolean;
-  results: CompressionResult[];
+  compressedImages: CompressedImage[];
+  quality: number;
+  maxWidth?: number;
+  maxHeight?: number;
+  isProcessing: boolean;
+  error?: string;
 }
 
-export interface CompressionResult {
+export interface CompressedImage {
+  originalFile: File;
+  compressedBlob: Blob;
+  compressedDataUrl: string;
   originalSize: number;
   compressedSize: number;
   compressionRatio: number;
-  file: File;
-  previewUrl: string;
+  originalDimensions: { width: number; height: number };
+  compressedDimensions: { width: number; height: number };
 }
 
 // Markdown previewer types
