@@ -61,16 +61,20 @@ export interface Base64ImageState {
   mode: 'encode' | 'decode';
   files: File[];
   base64Data: string;
+  base64String: string;
   previewUrl: string;
-  metadata: ImageMetadata;
+  metadata: ImageMetadata[];
   progress: number;
+  isValid: boolean;
+  error?: string;
 }
 
 export interface ImageMetadata {
   filename: string;
   size: number;
-  dimensions: { width: number; height: number };
+  dimensions: { width: number; height: number } | null;
   format: string;
+  type: string;
   colorDepth?: number;
 }
 
