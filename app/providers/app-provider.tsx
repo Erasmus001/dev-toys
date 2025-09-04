@@ -22,12 +22,12 @@ const theme = createTheme({
       '#f8f9fa', // 1
       '#e9ecef', // 2
       '#dee2e6', // 3
-      '#ced4da', // 4
+      '#fafbfc', // 4 - almost invisible light gray for very subtle borders
       '#adb5bd', // 5
-      '#6c757d', // 6
-      '#495057', // 7
-      '#343a40', // 8
-      '#000000'  // 9 - black for dark mode backgrounds
+      '#1a1f23', // 6
+      '#15141b', // 7 - dark purple-gray for dark mode text
+      '#15141b', // 8 - dark purple-gray for dark mode text
+      '#15141b'  // 9 - dark purple-gray for dark mode backgrounds
     ]
   },
   
@@ -41,14 +41,14 @@ const theme = createTheme({
     },
     TextInput: {
       defaultProps: {
-        size: 'md',
+        size: 'sm',
       },
     },
     Textarea: {
       defaultProps: {
-        size: 'md',
+        size: 'xl',
         autosize: true,
-        minRows: 3,
+        minRows: 8,
       },
     },
     Card: {
@@ -77,7 +77,7 @@ interface AppProviderProps {
 export function AppProvider({ children }: AppProviderProps) {
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      <Notifications position="top-right" limit={5} />
+      <Notifications position="bottom-right" limit={5} />
       <AppContextProvider>
         {children}
       </AppContextProvider>

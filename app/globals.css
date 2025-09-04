@@ -18,7 +18,7 @@
 
 /* Dark mode theming */
 [data-mantine-color-scheme="dark"] {
-  --mantine-color-body: #000000;
+  --mantine-color-body: #15141b;
   --mantine-color-text: #ffffff;
   --mantine-color-dimmed: #cccccc;
 }
@@ -65,7 +65,7 @@ html, body {
 }
 
 [data-mantine-color-scheme="dark"] .tool-card:hover {
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.705);
 }
 
 /* Focus styles */

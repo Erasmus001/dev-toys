@@ -1,22 +1,12 @@
-'use client';
+"use client";
 
-import { 
-  Group, 
-  Text, 
-  ActionIcon, 
-  TextInput, 
-  Box
-} from '@mantine/core';
-import { 
-  IconSearch, 
-  IconSun, 
-  IconMoon
-} from '@tabler/icons-react';
-import { useMantineColorScheme } from '@mantine/core';
-import { useAppContext } from '@/app/providers/app-context';
-import { APP_CONFIG } from '@/app/lib/constants';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Group, Text, ActionIcon, TextInput } from "@mantine/core";
+import { IconSearch, IconSun, IconMoon } from "@tabler/icons-react";
+import { useMantineColorScheme } from "@mantine/core";
+import { useAppContext } from "@/app/providers/app-context";
+import { APP_CONFIG } from "@/app/lib/constants";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface HeaderProps {
   title?: string;
@@ -25,11 +15,11 @@ interface HeaderProps {
   onSearchChange?: (query: string) => void;
 }
 
-export function Header({ 
+export function Header({
   title,
-  showSearch = true, 
+  showSearch = true,
   showThemeToggle = true,
-  onSearchChange 
+  onSearchChange,
 }: HeaderProps) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const { searchQuery, setSearchQuery } = useAppContext();
@@ -48,21 +38,27 @@ export function Header({
   const displayTitle = title || APP_CONFIG.name;
 
   return (
-    <div 
-    className='w-full p-5 bg-white'
+    <div
       style={{
-        borderBottom: '1px solid var(--mantine-color-gray-3)',
-        background: 'var(--background)',
+        width: '100%',
+        padding: '20px',
+        backgroundColor: 'var(--mantine-color-body)',
+        color: 'var(--mantine-color-text)',
+        borderBottom: '1px solid var(--mantine-color-dimmed)',
         position: 'sticky',
         top: 0,
         zIndex: 100
       }}
     >
-      <div className='w-full max-w-screen-xl mx-auto flex justify-between items-center'>
-        <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="w-full max-w-screen-xl mx-auto flex justify-between items-center">
+        <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Group align="center" gap="xs">
-            <Text size="xl" fw={700} c="blue">🛠️</Text>
-            <Text size="xl" fw={700}>{displayTitle}</Text>
+            <Text size="xl" fw={700} c="blue">
+              🛠️
+            </Text>
+            <Text size="xl" fw={700}>
+              {displayTitle}
+            </Text>
           </Group>
         </Link>
 
@@ -72,20 +68,24 @@ export function Header({
               placeholder="Search tools..."
               leftSection={<IconSearch size={16} />}
               value={searchQuery}
-              onChange={(event) => handleSearchChange(event.currentTarget.value)}
+              onChange={(event) =>
+                handleSearchChange(event.currentTarget.value)
+              }
               style={{ minWidth: 200 }}
               size="sm"
             />
           )}
-          
+
           {showThemeToggle && mounted && (
             <ActionIcon
               variant="subtle"
               size="lg"
               onClick={() => toggleColorScheme()}
-              title={`Switch to ${colorScheme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${
+                colorScheme === "dark" ? "light" : "dark"
+              } mode`}
             >
-              {colorScheme === 'dark' ? (
+              {colorScheme === "dark" ? (
                 <IconSun size={18} />
               ) : (
                 <IconMoon size={18} />

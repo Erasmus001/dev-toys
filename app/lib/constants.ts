@@ -2,10 +2,10 @@ import { ToolDefinition } from './types';
 
 // Application metadata
 export const APP_CONFIG = {
-  name: 'DevTools Mini',
+  name: 'Dev Tools',
   description: 'A comprehensive web-based developer utility application with 17 essential tools',
   version: '1.0.0',
-  author: 'DevTools Team',
+  author: 'Erasmus Mensah',
   url: 'https://devtools-mini.vercel.app'
 } as const;
 

@@ -48,9 +48,9 @@ export function ToolCard({ tool, isHighlighted, onClick, className }: ToolCardPr
       style={{ 
         textDecoration: 'none',
         color: 'inherit',
-        height: '160px',
+        height: '180px',
         cursor: 'pointer',
-        border: isHighlighted ? '2px solid var(--mantine-color-blue-6)' : undefined
+        border: isHighlighted ? '3px solid var(--mantine-color-blue-6)' : undefined
       }}
       p="md"
       onClick={handleClick}
