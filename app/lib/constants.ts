@@ -3,7 +3,7 @@ import { ToolDefinition } from './types';
 // Application metadata
 export const APP_CONFIG = {
   name: 'Dev Tools',
-  description: 'A comprehensive web-based developer utility application with 17 essential tools',
+  description: 'A comprehensive web-based developer utility application with 19 essential tools',
   version: '1.0.0',
   author: 'Erasmus Mensah',
   url: 'https://devtools-mini.vercel.app'
@@ -173,14 +173,32 @@ export const TOOLS: ToolDefinition[] = [
     category: 'data-conversion',
     path: '/tools/json-typescript',
     tags: ['json', 'typescript', 'interface', 'type', 'generator']
+  },
+  {  
+    id: 'json-csv',
+    name: 'JSON ↔ CSV',
+    description: 'Convert between JSON and CSV formats with bidirectional conversion',
+    icon: '📊',
+    category: 'data-conversion',
+    path: '/tools/json-csv',
+    tags: ['json', 'csv', 'convert', 'data', 'table', 'spreadsheet']
+  },
+  {
+    id: 'mock-api-generator',
+    name: 'Mock API Generator',
+    description: 'Generate realistic mock API responses from JSON schemas',
+    icon: '🎭',
+    category: 'generation',
+    path: '/tools/mock-api-generator',
+    tags: ['api', 'mock', 'json', 'schema', 'faker', 'testing']
   }
 ];
 
 // Tool categories for filtering
 export const TOOL_CATEGORIES = [
   { id: 'text-processing', name: 'Text Processing', count: 5 },
-  { id: 'data-conversion', name: 'Data Conversion', count: 3 },
-  { id: 'generation', name: 'Generation', count: 3 },
+  { id: 'data-conversion', name: 'Data Conversion', count: 4 },
+  { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
   { id: 'utilities', name: 'Utilities', count: 2 }
 ] as const;
@@ -190,8 +208,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 17,
-  emptyCells: 8
+  toolsCount: 19,
+  emptyCells: 6
 } as const;
 
 // Default placeholder for empty grid cells

@@ -40,7 +40,7 @@ export default function HomePage() {
             </Text>
             
             <Text size="md" c="dimmed">
-              Choose from 17 essential developer tools
+              Choose from 19 essential developer tools
             </Text>
           </div>
 

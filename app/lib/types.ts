@@ -427,6 +427,52 @@ export interface JsonTypescriptState {
   };
 }
 
+// JSON/CSV converter types
+export interface JsonCsvState {
+  mode: 'json-to-csv' | 'csv-to-json';
+  input: string;
+  output: string;
+  options: JsonCsvOptions;
+  isValid: boolean;
+  error?: string;
+  metadata?: {
+    rows: number;
+    columns: number;
+    size: string;
+  };
+}
+
+export interface JsonCsvOptions {
+  delimiter: ',' | ';' | '\t' | '|';
+  includeHeaders: boolean;
+  skipEmptyLines: boolean;
+  trimWhitespace: boolean;
+  encoding: 'utf-8' | 'latin1';
+  flattenArrays: boolean;
+  arrayDelimiter: string;
+}
+
+export interface CsvParseResult {
+  data: any[];
+  errors: CsvError[];
+  meta: {
+    delimiter: string;
+    linebreak: string;
+    aborted: boolean;
+    truncated: boolean;
+    cursor: number;
+    fields?: string[];
+  };
+}
+
+export interface CsvError {
+  type: 'Quotes' | 'Delimiter' | 'FieldMismatch';
+  code: string;
+  message: string;
+  row: number;
+  index: number;
+}
+
 export interface GeneratedInterface {
   name: string;
   properties: InterfaceProperty[];
@@ -437,6 +483,47 @@ export interface InterfaceProperty {
   type: string;
   optional: boolean;
   description?: string;
+}
+
+// Mock API Generator types
+export interface MockApiGeneratorState {
+  schema: string;
+  output: string;
+  isValid: boolean;
+  error?: string;
+  options: MockApiOptions;
+  metadata?: {
+    recordCount: number;
+    size: string;
+    generationTime: number;
+  };
+}
+
+export interface MockApiOptions {
+  recordCount: number;
+  statusCode: number;
+  useFaker: boolean;
+  includeResponseWrapper: boolean;
+  seed?: number;
+  locale: string;
+}
+
+export interface MockApiResponse {
+  status: number;
+  statusText: string;
+  data: any;
+  metadata: {
+    count: number;
+    generatedAt: string;
+    schema: any;
+  };
+}
+
+export interface SchemaValidationError {
+  path: string;
+  message: string;
+  line?: number;
+  column?: number;
 }
 
 // Storage keys constant
