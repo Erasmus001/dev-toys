@@ -677,15 +677,15 @@ export function MockApiGeneratorTool() {
 
           <Stack gap="xs" pos="relative">
             <LoadingOverlay visible={isGenerating} />
-            <Group justify="space-between">
-              <Text fw={500}>
-                Generated Mock Data
+            <Group justify="space-between" align="center">
+              <Group align="center" gap="xs">
+                <Text fw={500}>Generated Mock Data</Text>
                 {state.options.includeResponseWrapper && (
-                  <Badge size="xs" ml="xs" variant="light">
+                  <Badge size="xs" variant="light">
                     API Response
                   </Badge>
                 )}
-              </Text>
+              </Group>
               {state.output && (
                 <MantineCopyButton value={state.output} timeout={2000}>
                   {({ copied, copy }) => (

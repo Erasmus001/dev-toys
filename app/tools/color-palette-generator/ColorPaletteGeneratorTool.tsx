@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
   Stack,
   Group,
@@ -85,135 +85,171 @@ export default function ColorPaletteGeneratorTool() {
     saturationAdjust: 0,
   });
   
+  // Separate state for the color picker to avoid lag
+  const [tempBaseColor, setTempBaseColor] = useState('#3b82f6');
   const [palette, setPalette] = useState<ColorInfo[]>([]);
   const [exportFormat, setExportFormat] = useState<ExportFormat>('css');
   const [colorFormat, setColorFormat] = useState<ColorFormat>('hex');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [exportedCode, setExportedCode] = useState('');
+  
+  // Debounce timer ref
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Generate palette based on current configuration
-  const generatePalette = useCallback((currentConfig: PaletteConfig): ColorInfo[] => {
-    const { baseColor, scheme, colorCount, lightnessRange, saturationAdjust } = currentConfig;
-    
-    try {
-      const base = chroma(baseColor);
-      let colors: chroma.Color[] = [];
+  // Memoized palette generation function
+  const generatePalette = useMemo(() => {
+    return (currentConfig: PaletteConfig): ColorInfo[] => {
+      const { baseColor, scheme, colorCount, lightnessRange, saturationAdjust } = currentConfig;
+      
+      try {
+        const base = chroma(baseColor);
+        let colors: chroma.Color[] = [];
 
-      switch (scheme) {
-        case 'monochromatic':
-          colors = chroma
-            .scale([
-              base.set('hsl.l', lightnessRange[0]),
+        switch (scheme) {
+          case 'monochromatic':
+            colors = chroma
+              .scale([
+                base.set('hsl.l', lightnessRange[0]),
+                base,
+                base.set('hsl.l', lightnessRange[1]),
+              ])
+              .mode('hsl')
+              .colors(colorCount)
+              .map(c => chroma(c));
+            break;
+
+          case 'analogous':
+            const analogousHues = Array.from({ length: colorCount }, (_, i) => {
+              const hueShift = (i - Math.floor(colorCount / 2)) * (60 / colorCount);
+              return base.set('hsl.h', `+${hueShift}`);
+            });
+            colors = analogousHues;
+            break;
+
+          case 'complementary':
+            if (colorCount <= 2) {
+              colors = [base, base.set('hsl.h', '+180')];
+            } else {
+              const complement = base.set('hsl.h', '+180');
+              const baseShades = chroma.scale([
+                base.set('hsl.l', lightnessRange[0]),
+                base.set('hsl.l', lightnessRange[1])
+              ]).colors(Math.ceil(colorCount / 2)).map(c => chroma(c));
+              const complementShades = chroma.scale([
+                complement.set('hsl.l', lightnessRange[0]),
+                complement.set('hsl.l', lightnessRange[1])
+              ]).colors(Math.floor(colorCount / 2)).map(c => chroma(c));
+              colors = [...baseShades, ...complementShades];
+            }
+            break;
+
+          case 'triadic':
+            colors = [
               base,
-              base.set('hsl.l', lightnessRange[1]),
-            ])
-            .mode('hsl')
-            .colors(colorCount)
-            .map(c => chroma(c));
-          break;
+              base.set('hsl.h', '+120'),
+              base.set('hsl.h', '+240'),
+            ];
+            // Fill remaining slots with variations
+            while (colors.length < colorCount) {
+              const randomBase = colors[Math.floor(Math.random() * 3)];
+              colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
+            }
+            break;
 
-        case 'analogous':
-          const analogousHues = Array.from({ length: colorCount }, (_, i) => {
-            const hueShift = (i - Math.floor(colorCount / 2)) * (60 / colorCount);
-            return base.set('hsl.h', `+${hueShift}`);
-          });
-          colors = analogousHues;
-          break;
+          case 'tetradic':
+            colors = [
+              base,
+              base.set('hsl.h', '+90'),
+              base.set('hsl.h', '+180'),
+              base.set('hsl.h', '+270'),
+            ];
+            // Fill remaining slots with variations
+            while (colors.length < colorCount) {
+              const randomBase = colors[Math.floor(Math.random() * 4)];
+              colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
+            }
+            break;
 
-        case 'complementary':
-          if (colorCount <= 2) {
-            colors = [base, base.set('hsl.h', '+180')];
-          } else {
-            const complement = base.set('hsl.h', '+180');
-            const baseShades = chroma.scale([
-              base.set('hsl.l', lightnessRange[0]),
-              base.set('hsl.l', lightnessRange[1])
-            ]).colors(Math.ceil(colorCount / 2)).map(c => chroma(c));
-            const complementShades = chroma.scale([
-              complement.set('hsl.l', lightnessRange[0]),
-              complement.set('hsl.l', lightnessRange[1])
-            ]).colors(Math.floor(colorCount / 2)).map(c => chroma(c));
-            colors = [...baseShades, ...complementShades];
-          }
-          break;
+          case 'split-complementary':
+            colors = [
+              base,
+              base.set('hsl.h', '+150'),
+              base.set('hsl.h', '+210'),
+            ];
+            // Fill remaining slots with variations
+            while (colors.length < colorCount) {
+              const randomBase = colors[Math.floor(Math.random() * 3)];
+              colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
+            }
+            break;
 
-        case 'triadic':
-          colors = [
-            base,
-            base.set('hsl.h', '+120'),
-            base.set('hsl.h', '+240'),
-          ];
-          // Fill remaining slots with variations
-          while (colors.length < colorCount) {
-            const randomBase = colors[Math.floor(Math.random() * 3)];
-            colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
-          }
-          break;
+          default:
+            colors = [base];
+        }
 
-        case 'tetradic':
-          colors = [
-            base,
-            base.set('hsl.h', '+90'),
-            base.set('hsl.h', '+180'),
-            base.set('hsl.h', '+270'),
-          ];
-          // Fill remaining slots with variations
-          while (colors.length < colorCount) {
-            const randomBase = colors[Math.floor(Math.random() * 4)];
-            colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
-          }
-          break;
+        // Apply saturation adjustment
+        if (saturationAdjust !== 0) {
+          colors = colors.map(color => 
+            color.set('hsl.s', Math.max(0, Math.min(1, color.get('hsl.s') + saturationAdjust / 100)))
+          );
+        }
 
-        case 'split-complementary':
-          colors = [
-            base,
-            base.set('hsl.h', '+150'),
-            base.set('hsl.h', '+210'),
-          ];
-          // Fill remaining slots with variations
-          while (colors.length < colorCount) {
-            const randomBase = colors[Math.floor(Math.random() * 3)];
-            colors.push(randomBase.set('hsl.l', Math.random() * 0.6 + 0.2));
-          }
-          break;
+        // Convert to ColorInfo objects with accessibility data
+        return colors.slice(0, colorCount).map(color => {
+          const hex = color.hex();
+          const rgb = color.rgb();
+          const hsl = color.hsl();
+          
+          const contrastWithWhite = chroma.contrast(color, 'white');
+          const contrastWithBlack = chroma.contrast(color, 'black');
 
-        default:
-          colors = [base];
+          return {
+            color: hex,
+            hex,
+            rgb: `rgb(${Math.round(rgb[0])}, ${Math.round(rgb[1])}, ${Math.round(rgb[2])})`,
+            hsl: `hsl(${Math.round(hsl[0] || 0)}, ${Math.round((hsl[1] || 0) * 100)}%, ${Math.round((hsl[2] || 0) * 100)}%)`,
+            contrastWithWhite,
+            contrastWithBlack,
+            wcagAAWhite: contrastWithWhite >= 4.5,
+            wcagAAAWhite: contrastWithWhite >= 7,
+            wcagAABlack: contrastWithBlack >= 4.5,
+            wcagAAABlack: contrastWithBlack >= 7,
+          };
+        });
+      } catch (error) {
+        console.error('Error generating palette:', error);
+        return [];
       }
+    };
+  }, []);
 
-      // Apply saturation adjustment
-      if (saturationAdjust !== 0) {
-        colors = colors.map(color => 
-          color.set('hsl.s', Math.max(0, Math.min(1, color.get('hsl.s') + saturationAdjust / 100)))
-        );
-      }
-
-      // Convert to ColorInfo objects with accessibility data
-      return colors.slice(0, colorCount).map(color => {
-        const hex = color.hex();
-        const rgb = color.rgb();
-        const hsl = color.hsl();
-        
-        const contrastWithWhite = chroma.contrast(color, 'white');
-        const contrastWithBlack = chroma.contrast(color, 'black');
-
-        return {
-          color: hex,
-          hex,
-          rgb: `rgb(${Math.round(rgb[0])}, ${Math.round(rgb[1])}, ${Math.round(rgb[2])})`,
-          hsl: `hsl(${Math.round(hsl[0] || 0)}, ${Math.round((hsl[1] || 0) * 100)}%, ${Math.round((hsl[2] || 0) * 100)}%)`,
-          contrastWithWhite,
-          contrastWithBlack,
-          wcagAAWhite: contrastWithWhite >= 4.5,
-          wcagAAAWhite: contrastWithWhite >= 7,
-          wcagAABlack: contrastWithBlack >= 4.5,
-          wcagAAABlack: contrastWithBlack >= 7,
-        };
-      });
-    } catch (error) {
-      console.error('Error generating palette:', error);
-      return [];
+  // Debounced color change handler
+  const handleColorChange = useCallback((color: string) => {
+    setTempBaseColor(color);
+    
+    // Clear existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
     }
+    
+    // Set new timer for debounced update
+    debounceTimerRef.current = setTimeout(() => {
+      setConfig(prev => ({ ...prev, baseColor: color }));
+    }, 150); // 150ms debounce
+  }, []);
+  
+  // Initialize temp color with config color
+  useEffect(() => {
+    setTempBaseColor(config.baseColor);
+  }, []);
+  
+  // Cleanup debounce timer
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
   }, []);
 
   // Update palette when configuration changes
@@ -316,6 +352,7 @@ export default function ColorPaletteGeneratorTool() {
   const randomizeColors = () => {
     const randomHue = Math.floor(Math.random() * 360);
     const randomColor = chroma.hsl(randomHue, 0.7, 0.5).hex();
+    setTempBaseColor(randomColor);
     handleConfigChange({ baseColor: randomColor });
   };
 
@@ -349,8 +386,15 @@ export default function ColorPaletteGeneratorTool() {
               <Stack gap="xs">
                 <Text size="sm" fw={500}>Base Color</Text>
                 <ColorPicker
-                  value={config.baseColor}
-                  onChange={(color) => handleConfigChange({ baseColor: color })}
+                  value={tempBaseColor}
+                  onChange={handleColorChange}
+                  onChangeEnd={(color) => {
+                    // Ensure final value is committed immediately
+                    if (debounceTimerRef.current) {
+                      clearTimeout(debounceTimerRef.current);
+                    }
+                    setConfig(prev => ({ ...prev, baseColor: color }));
+                  }}
                   format="hex"
                   size="lg"
                   swatches={[
