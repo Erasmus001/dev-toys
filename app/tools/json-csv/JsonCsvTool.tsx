@@ -480,7 +480,6 @@ export function JsonCsvTool() {
                         icon={<IconInfoCircle size={16} />}
                         color="red"
                         variant="light"
-                        size="sm"
                       >
                         {state.error}
                       </Alert>
