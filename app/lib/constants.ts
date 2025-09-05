@@ -211,6 +211,15 @@ export const TOOLS: ToolDefinition[] = [
     category: 'utilities',
     path: '/tools/eslint-rule-checker',
     tags: ['eslint', 'javascript', 'typescript', 'linting', 'code-quality', 'static-analysis']
+  },
+  {
+    id: 'css-layout-generator',
+    name: 'CSS Layout Generator',
+    description: 'Generate Flexbox and Grid layouts with Tailwind support and accessibility checks',
+    icon: '📐',
+    category: 'design',
+    path: '/tools/css-layout-generator',
+    tags: ['css', 'flexbox', 'grid', 'layout', 'tailwind', 'accessibility', 'responsive', 'generator']
   }
 ];
 
@@ -221,7 +230,7 @@ export const TOOL_CATEGORIES = [
   { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
   { id: 'utilities', name: 'Utilities', count: 3 },
-  { id: 'design', name: 'Design', count: 1 }
+  { id: 'design', name: 'Design', count: 2 }
 ] as const;
 
 // Grid layout configuration for 5x5 display
@@ -229,8 +238,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 21,
-  emptyCells: 4
+  toolsCount: 22,
+  emptyCells: 3
 } as const;
 
 // Default placeholder for empty grid cells
