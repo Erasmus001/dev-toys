@@ -3,13 +3,13 @@ import { ToolDefinition } from './types';
 // Application metadata
 export const APP_CONFIG = {
   name: 'Dev Tools',
-  description: 'A comprehensive web-based developer utility application with 20 essential tools',
+  description: 'A comprehensive web-based developer utility application with 21 essential tools',
   version: '1.0.0',
   author: 'Erasmus Mensah',
   url: 'https://devtools-mini.vercel.app'
 } as const;
 
-// All 20 tool definitions for the 5x5 grid
+// All 21 tool definitions for the 5x5 grid
 export const TOOLS: ToolDefinition[] = [
   // Row 1
   {
@@ -202,6 +202,15 @@ export const TOOLS: ToolDefinition[] = [
     category: 'design',
     path: '/tools/color-palette-generator',
     tags: ['color', 'palette', 'accessibility', 'wcag', 'contrast', 'design']
+  },
+  {
+    id: 'eslint-rule-checker',
+    name: 'ESLint Rule Checker',
+    description: 'Check JavaScript and TypeScript code against ESLint rules with auto-fix',
+    icon: '🔍',
+    category: 'utilities',
+    path: '/tools/eslint-rule-checker',
+    tags: ['eslint', 'javascript', 'typescript', 'linting', 'code-quality', 'static-analysis']
   }
 ];
 
@@ -211,7 +220,7 @@ export const TOOL_CATEGORIES = [
   { id: 'data-conversion', name: 'Data Conversion', count: 4 },
   { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
-  { id: 'utilities', name: 'Utilities', count: 2 },
+  { id: 'utilities', name: 'Utilities', count: 3 },
   { id: 'design', name: 'Design', count: 1 }
 ] as const;
 
@@ -220,8 +229,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 20,
-  emptyCells: 5
+  toolsCount: 21,
+  emptyCells: 4
 } as const;
 
 // Default placeholder for empty grid cells

@@ -48,7 +48,7 @@ export function ToolLayout({
 
   return (
     <>
-      <Header title={`${title} - Dev Tools`} />
+      <Header />
       
       <Container size="xl" py="lg" mt={"md"}>
         <Stack gap="lg">
