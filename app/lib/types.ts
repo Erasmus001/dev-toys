@@ -4,7 +4,8 @@ export type ToolCategory =
   | 'data-conversion'
   | 'generation'
   | 'file-processing'
-  | 'utilities';
+  | 'utilities'
+  | 'design';
 
 export interface ToolDefinition {
   id: string;

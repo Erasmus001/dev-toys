@@ -3,13 +3,13 @@ import { ToolDefinition } from './types';
 // Application metadata
 export const APP_CONFIG = {
   name: 'Dev Tools',
-  description: 'A comprehensive web-based developer utility application with 19 essential tools',
+  description: 'A comprehensive web-based developer utility application with 20 essential tools',
   version: '1.0.0',
   author: 'Erasmus Mensah',
   url: 'https://devtools-mini.vercel.app'
 } as const;
 
-// All 17 tool definitions for the 5x5 grid
+// All 20 tool definitions for the 5x5 grid
 export const TOOLS: ToolDefinition[] = [
   // Row 1
   {
@@ -191,6 +191,17 @@ export const TOOLS: ToolDefinition[] = [
     category: 'generation',
     path: '/tools/mock-api-generator',
     tags: ['api', 'mock', 'json', 'schema', 'faker', 'testing']
+  },
+
+  // Row 5
+  {
+    id: 'color-palette-generator',
+    name: 'Color Palette Generator',
+    description: 'Generate color palettes with accessibility checks and WCAG compliance',
+    icon: '🎨',
+    category: 'design',
+    path: '/tools/color-palette-generator',
+    tags: ['color', 'palette', 'accessibility', 'wcag', 'contrast', 'design']
   }
 ];
 
@@ -200,7 +211,8 @@ export const TOOL_CATEGORIES = [
   { id: 'data-conversion', name: 'Data Conversion', count: 4 },
   { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
-  { id: 'utilities', name: 'Utilities', count: 2 }
+  { id: 'utilities', name: 'Utilities', count: 2 },
+  { id: 'design', name: 'Design', count: 1 }
 ] as const;
 
 // Grid layout configuration for 5x5 display
@@ -208,8 +220,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 19,
-  emptyCells: 6
+  toolsCount: 20,
+  emptyCells: 5
 } as const;
 
 // Default placeholder for empty grid cells
