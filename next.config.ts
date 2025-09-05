@@ -12,8 +12,6 @@ const nextConfig: NextConfig = {
     '@mantine/notifications',
     '@mantine/spotlight'
   ],
-  // Ensure proper build output
-  output: 'standalone',
 };
 
 export default nextConfig;
