@@ -13,7 +13,7 @@ interface ComingSoonProps {
 export function ComingSoon({ toolName, description }: ComingSoonProps) {
   return (
     <>
-      <Header title={`${toolName} - DevTools Mini`} />
+      <Header title={`${toolName} - Dev Tools`} />
       
       <Container size="md" py="xl">
         <Paper p="xl" radius="lg" style={{ textAlign: 'center' }}>

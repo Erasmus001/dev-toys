@@ -1,7 +1,7 @@
-# DevTools Mini - Tool Specifications
+# Dev Tools - Tool Specifications
 
 ## Overview
-This document provides detailed specifications for all 17 tools in the DevTools Mini application. Each tool includes functional requirements, technical implementation details, and user interface specifications.
+This document provides detailed specifications for all 17 tools in the Dev Tools application. Each tool includes functional requirements, technical implementation details, and user interface specifications.
 
 ---
 
@@ -775,4 +775,4 @@ interface CronSchedule {
 
 ---
 
-*This specification document serves as the definitive guide for implementing each tool in the DevTools Mini application.*
+*This specification document serves as the definitive guide for implementing each tool in the Dev Tools application.*

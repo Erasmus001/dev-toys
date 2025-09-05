@@ -1,6 +1,6 @@
-# DevTools Mini - Documentation
+# Dev Tools - Documentation
 
-Welcome to the comprehensive documentation for the DevTools Mini project. This directory contains all necessary documents for understanding, developing, and maintaining the application.
+Welcome to the comprehensive documentation for the Dev Tools project. This directory contains all necessary documents for understanding, developing, and maintaining the application.
 
 ## 📁 Documentation Overview
 
@@ -173,4 +173,4 @@ For questions about the documentation or project:
 
 ---
 
-*This documentation set provides comprehensive guidance for the DevTools Mini project. Keep it updated and use it as the single source of truth for project information.*
+*This documentation set provides comprehensive guidance for the Dev Tools project. Keep it updated and use it as the single source of truth for project information.*

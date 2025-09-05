@@ -1,4 +1,4 @@
-# DevTools Mini - Component API Reference
+# Dev Tools - Component API Reference
 
 ## Core Layout Components
 
@@ -40,7 +40,7 @@ export function Header(props: HeaderProps): JSX.Element
 ```
 
 **Props**:
-- `title` - Custom title (defaults to "DevTools Mini")
+- `title` - Custom title (defaults to "Dev Tools")
 - `showSearch` - Show/hide search functionality
 - `showThemeToggle` - Show/hide theme toggle button
 - `onSearchChange` - Callback for search query changes
@@ -542,4 +542,4 @@ interface ProcessingResult<T = any> {
 
 ---
 
-*This API reference provides comprehensive documentation for all components, hooks, and types used in the DevTools Mini application.*
+*This API reference provides comprehensive documentation for all components, hooks, and types used in the Dev Tools application.*

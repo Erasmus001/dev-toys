@@ -3,13 +3,13 @@ import { ToolDefinition } from './types';
 // Application metadata
 export const APP_CONFIG = {
   name: 'Dev Tools',
-  description: 'A comprehensive web-based developer utility application with 17 essential tools',
+  description: 'A comprehensive web-based developer utility application with 21 essential tools',
   version: '1.0.0',
   author: 'Erasmus Mensah',
   url: 'https://devtools-mini.vercel.app'
 } as const;
 
-// All 17 tool definitions for the 5x5 grid
+// All 21 tool definitions for the 5x5 grid
 export const TOOLS: ToolDefinition[] = [
   // Row 1
   {
@@ -173,16 +173,64 @@ export const TOOLS: ToolDefinition[] = [
     category: 'data-conversion',
     path: '/tools/json-typescript',
     tags: ['json', 'typescript', 'interface', 'type', 'generator']
+  },
+  {  
+    id: 'json-csv',
+    name: 'JSON ↔ CSV',
+    description: 'Convert between JSON and CSV formats with bidirectional conversion',
+    icon: '📊',
+    category: 'data-conversion',
+    path: '/tools/json-csv',
+    tags: ['json', 'csv', 'convert', 'data', 'table', 'spreadsheet']
+  },
+  {
+    id: 'mock-api-generator',
+    name: 'Mock API Generator',
+    description: 'Generate realistic mock API responses from JSON schemas',
+    icon: '🎭',
+    category: 'generation',
+    path: '/tools/mock-api-generator',
+    tags: ['api', 'mock', 'json', 'schema', 'faker', 'testing']
+  },
+
+  // Row 5
+  {
+    id: 'color-palette-generator',
+    name: 'Color Palette Generator',
+    description: 'Generate color palettes with accessibility checks and WCAG compliance',
+    icon: '🎨',
+    category: 'design',
+    path: '/tools/color-palette-generator',
+    tags: ['color', 'palette', 'accessibility', 'wcag', 'contrast', 'design']
+  },
+  {
+    id: 'eslint-rule-checker',
+    name: 'ESLint Rule Checker',
+    description: 'Check JavaScript and TypeScript code against ESLint rules with auto-fix',
+    icon: '🔍',
+    category: 'utilities',
+    path: '/tools/eslint-rule-checker',
+    tags: ['eslint', 'javascript', 'typescript', 'linting', 'code-quality', 'static-analysis']
+  },
+  {
+    id: 'css-layout-generator',
+    name: 'CSS Layout Generator',
+    description: 'Generate Flexbox and Grid layouts with Tailwind support and accessibility checks',
+    icon: '📐',
+    category: 'design',
+    path: '/tools/css-layout-generator',
+    tags: ['css', 'flexbox', 'grid', 'layout', 'tailwind', 'accessibility', 'responsive', 'generator']
   }
 ];
 
 // Tool categories for filtering
 export const TOOL_CATEGORIES = [
   { id: 'text-processing', name: 'Text Processing', count: 5 },
-  { id: 'data-conversion', name: 'Data Conversion', count: 3 },
-  { id: 'generation', name: 'Generation', count: 3 },
+  { id: 'data-conversion', name: 'Data Conversion', count: 4 },
+  { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
-  { id: 'utilities', name: 'Utilities', count: 2 }
+  { id: 'utilities', name: 'Utilities', count: 3 },
+  { id: 'design', name: 'Design', count: 2 }
 ] as const;
 
 // Grid layout configuration for 5x5 display
@@ -190,8 +238,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 17,
-  emptyCells: 8
+  toolsCount: 22,
+  emptyCells: 3
 } as const;
 
 // Default placeholder for empty grid cells

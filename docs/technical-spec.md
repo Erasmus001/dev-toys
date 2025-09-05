@@ -1,4 +1,4 @@
-# DevTools Mini - Technical Specification Document
+# Dev Tools - Technical Specification Document
 
 ## 1. System Architecture Overview
 
@@ -478,4 +478,4 @@ function useFocusManagement(): {
 
 ---
 
-*This technical specification serves as the implementation guide for the DevTools Mini project and should be updated as the architecture evolves.*
+*This technical specification serves as the implementation guide for the Dev Tools project and should be updated as the architecture evolves.*

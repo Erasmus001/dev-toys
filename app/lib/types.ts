@@ -4,7 +4,8 @@ export type ToolCategory =
   | 'data-conversion'
   | 'generation'
   | 'file-processing'
-  | 'utilities';
+  | 'utilities'
+  | 'design';
 
 export interface ToolDefinition {
   id: string;
@@ -427,6 +428,52 @@ export interface JsonTypescriptState {
   };
 }
 
+// JSON/CSV converter types
+export interface JsonCsvState {
+  mode: 'json-to-csv' | 'csv-to-json';
+  input: string;
+  output: string;
+  options: JsonCsvOptions;
+  isValid: boolean;
+  error?: string;
+  metadata?: {
+    rows: number;
+    columns: number;
+    size: string;
+  };
+}
+
+export interface JsonCsvOptions {
+  delimiter: ',' | ';' | '\t' | '|';
+  includeHeaders: boolean;
+  skipEmptyLines: boolean;
+  trimWhitespace: boolean;
+  encoding: 'utf-8' | 'latin1';
+  flattenArrays: boolean;
+  arrayDelimiter: string;
+}
+
+export interface CsvParseResult {
+  data: any[];
+  errors: CsvError[];
+  meta: {
+    delimiter: string;
+    linebreak: string;
+    aborted: boolean;
+    truncated: boolean;
+    cursor: number;
+    fields?: string[];
+  };
+}
+
+export interface CsvError {
+  type: 'Quotes' | 'Delimiter' | 'FieldMismatch';
+  code: string;
+  message: string;
+  row: number;
+  index: number;
+}
+
 export interface GeneratedInterface {
   name: string;
   properties: InterfaceProperty[];
@@ -439,6 +486,47 @@ export interface InterfaceProperty {
   description?: string;
 }
 
+// Mock API Generator types
+export interface MockApiGeneratorState {
+  schema: string;
+  output: string;
+  isValid: boolean;
+  error?: string;
+  options: MockApiOptions;
+  metadata?: {
+    recordCount: number;
+    size: string;
+    generationTime: number;
+  };
+}
+
+export interface MockApiOptions {
+  recordCount: number;
+  statusCode: number;
+  useFaker: boolean;
+  includeResponseWrapper: boolean;
+  seed?: number;
+  locale: string;
+}
+
+export interface MockApiResponse {
+  status: number;
+  statusText: string;
+  data: any;
+  metadata: {
+    count: number;
+    generatedAt: string;
+    schema: any;
+  };
+}
+
+export interface SchemaValidationError {
+  path: string;
+  message: string;
+  line?: number;
+  column?: number;
+}
+
 // Storage keys constant
 export const STORAGE_KEYS = {
   THEME: 'devtools-theme',
@@ -446,3 +534,104 @@ export const STORAGE_KEYS = {
   USER_PREFERENCES: 'devtools-preferences',
   TOOL_HISTORY: 'devtools-tool-history'
 } as const;
+
+// CSS Layout Generator types
+export interface CssLayoutGeneratorState {
+  layoutType: LayoutType;
+  flexboxConfig: FlexboxConfig;
+  gridConfig: GridConfig;
+  children: LayoutChild[];
+  exportFormat: ExportFormat;
+  colorFormat: ColorFormat;
+  generatedCode: GeneratedCode;
+  showPreview: boolean;
+  previewBreakpoint: BreakpointSize;
+  accessibilityReport: AccessibilityReport;
+}
+
+export type LayoutType = 'flexbox' | 'grid';
+export type ExportFormat = 'css' | 'scss' | 'tailwind' | 'css-variables';
+export type ColorFormat = 'hex' | 'rgb' | 'hsl';
+export type BreakpointSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface FlexboxConfig {
+  direction: FlexDirection;
+  justifyContent: JustifyContent;
+  alignItems: AlignItems;
+  gap: number;
+  wrap: FlexWrap;
+  alignContent?: AlignContent;
+}
+
+export type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
+export type JustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+export type AlignItems = 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'baseline';
+export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type AlignContent = 'stretch' | 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
+
+export interface GridConfig {
+  templateColumns: string;
+  templateRows: string;
+  gap: number;
+  justifyItems: JustifyItems;
+  alignItems: GridAlignItems;
+  justifyContent: GridJustifyContent;
+  alignContent: GridAlignContent;
+  autoFlow?: GridAutoFlow;
+  autoColumns?: string;
+  autoRows?: string;
+}
+
+export type JustifyItems = 'stretch' | 'start' | 'end' | 'center';
+export type GridAlignItems = 'stretch' | 'start' | 'end' | 'center' | 'baseline';
+export type GridJustifyContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly';
+export type GridAlignContent = 'start' | 'end' | 'center' | 'stretch' | 'space-around' | 'space-between' | 'space-evenly';
+export type GridAutoFlow = 'row' | 'column' | 'dense' | 'row dense' | 'column dense';
+
+export interface LayoutChild {
+  id: string;
+  content: string;
+  backgroundColor: string;
+  textColor: string;
+  padding: number;
+  margin: number;
+  width?: string;
+  height?: string;
+  flexGrow?: number;
+  flexShrink?: number;
+  flexBasis?: string;
+  order?: number;
+  gridColumn?: string;
+  gridRow?: string;
+  justifySelf?: JustifySelf;
+  alignSelf?: AlignSelf;
+}
+
+export type JustifySelf = 'auto' | 'start' | 'end' | 'center' | 'stretch';
+export type AlignSelf = 'auto' | 'start' | 'end' | 'center' | 'stretch' | 'baseline';
+
+export interface GeneratedCode {
+  css: string;
+  scss: string;
+  tailwind: string;
+  cssVariables: string;
+  html: string;
+}
+
+export interface AccessibilityReport {
+  hasMinimumGap: boolean;
+  hasSufficientSpacing: boolean;
+  hasAccessibleContrast: boolean;
+  recommendations: string[];
+  wcagLevel: 'AA' | 'AAA' | 'FAIL';
+}
+
+export interface LayoutTemplate {
+  id: string;
+  name: string;
+  description: string;
+  layoutType: LayoutType;
+  config: FlexboxConfig | GridConfig;
+  children: LayoutChild[];
+  tags: string[];
+}

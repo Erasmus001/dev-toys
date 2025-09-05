@@ -1,9 +1,9 @@
-# DevTools Mini - Complete Project Specification
+# Dev Tools - Complete Project Specification
 
 ## 1. Product Requirements Overview
 
 ### Executive Summary
-DevTools Mini is a comprehensive web-based developer utility application that consolidates 17 essential development tools into a single, intuitive platform. Built with Next.js 15, the application provides developers with quick access to encoding/decoding, formatting, conversion, and generation utilities without requiring multiple external services.
+Dev Tools is a comprehensive web-based developer utility application that consolidates 17 essential development tools into a single, intuitive platform. Built with Next.js 15, the application provides developers with quick access to encoding/decoding, formatting, conversion, and generation utilities without requiring multiple external services.
 
 ### Business Objectives
 - **Consolidation**: Reduce dependency on multiple external tools and websites
