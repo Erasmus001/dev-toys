@@ -1,7 +1,7 @@
-# DevTools Mini - Development Roadmap
+# Dev Tools - Development Roadmap
 
 ## Project Overview
-This roadmap outlines the development phases for the DevTools Mini application, a comprehensive web-based developer utility platform featuring 17 essential tools in a 5x5 grid layout.
+This roadmap outlines the development phases for the Dev Tools application, a comprehensive web-based developer utility platform featuring 17 essential tools in a 5x5 grid layout.
 
 ## Development Phases
 

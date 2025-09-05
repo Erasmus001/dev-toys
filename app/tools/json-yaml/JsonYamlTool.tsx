@@ -154,7 +154,7 @@ export function JsonYamlTool() {
 
   const sampleData = {
     json: {
-      name: "DevTools Mini",
+      name: "Dev Tools",
       version: "1.0.0",
       description: "A comprehensive developer utility application",
       tools: [
@@ -171,7 +171,7 @@ export function JsonYamlTool() {
         }
       }
     },
-    yaml: `name: DevTools Mini
+    yaml: `name: Dev Tools
 version: "1.0.0"
 description: A comprehensive developer utility application
 tools:

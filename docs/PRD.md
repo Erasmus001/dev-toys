@@ -1,9 +1,9 @@
-# DevTools Mini - Product Requirements Document (PRD)
+# Dev Tools - Product Requirements Document (PRD)
 
 ## 1. Executive Summary
 
 ### Product Overview
-DevTools Mini is a comprehensive web-based developer utility application that consolidates 17 essential development tools into a single, intuitive platform. Built with Next.js 15, the application provides developers with quick access to encoding/decoding, formatting, conversion, and generation utilities without requiring multiple external services.
+Dev Tools is a comprehensive web-based developer utility application that consolidates 17 essential development tools into a single, intuitive platform. Built with Next.js 15, the application provides developers with quick access to encoding/decoding, formatting, conversion, and generation utilities without requiring multiple external services.
 
 ### Business Objectives
 - **Consolidation**: Reduce dependency on multiple external tools and websites
@@ -262,4 +262,4 @@ Centralized hub for essential developer tools with optimized performance, offlin
 
 ---
 
-*This PRD serves as the primary reference document for the DevTools Mini project development and should be updated as requirements evolve.*
+*This PRD serves as the primary reference document for the Dev Tools project development and should be updated as requirements evolve.*
