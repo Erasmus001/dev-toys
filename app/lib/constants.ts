@@ -220,6 +220,15 @@ export const TOOLS: ToolDefinition[] = [
     category: 'design',
     path: '/tools/css-layout-generator',
     tags: ['css', 'flexbox', 'grid', 'layout', 'tailwind', 'accessibility', 'responsive', 'generator']
+  },
+  {
+    id: 'logo-generator',
+    name: 'Logo Generator',
+    description: 'Create professional logos with icons, gradients, and customizable styles',
+    icon: '🎨',
+    category: 'design',
+    path: '/tools/logo-generator',
+    tags: ['logo', 'generator', 'design', 'branding', 'icon', 'graphics', 'svg', 'export']
   }
 ];
 
@@ -229,8 +238,8 @@ export const TOOL_CATEGORIES = [
   { id: 'data-conversion', name: 'Data Conversion', count: 4 },
   { id: 'generation', name: 'Generation', count: 4 },
   { id: 'file-processing', name: 'File Processing', count: 4 },
-  { id: 'utilities', name: 'Utilities', count: 3 },
-  { id: 'design', name: 'Design', count: 2 }
+  { id: 'design', name: 'Design', count: 3 },
+  { id: 'utilities', name: 'Utilities', count: 3 }
 ] as const;
 
 // Grid layout configuration for 5x5 display
@@ -238,8 +247,8 @@ export const GRID_CONFIG = {
   rows: 5,
   cols: 5,
   totalCells: 25,
-  toolsCount: 22,
-  emptyCells: 3
+  toolsCount: 23,
+  emptyCells: 2
 } as const;
 
 // Default placeholder for empty grid cells
